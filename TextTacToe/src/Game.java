@@ -24,8 +24,99 @@
  * 		1) Continue the current game (starting a new match).
  * 		2) Start a new game (erase the players' scores and start over).
  * 		3) Exit the game (terminate the program).
+ * 
+ * The 3x3 grid is arranged in this manner:
+ * 		1 | 2 | 3
+ * 		---------
+ * 		4 | 5 | 6
+ * 		---------
+ * 		7 | 8 | 9
+ * To play in a square, the player simply enters the corresponding number.
+ * 
  */
 
-public class Game {
+import java.util.Scanner;
 
+public class Game {
+	public static void main(String[] args) {
+		Scanner userIn = new Scanner(System.in);
+		
+		Player player1 = new Player('X');
+		Player player2 = new Player('O');
+		
+		Board b1 = new Board();
+		
+		boolean newGame = true,
+				stillPlaying = true,
+				win;
+		
+		int answer = 0;
+		
+		System.out.println("Welcome to Text-Tac-Toe!");
+		System.out.println("Player 1 is X, player 2 is O.");
+		
+		do {
+			if (newGame) {
+				System.out.print("What is the first player's name?: ");
+				player1 = new Player('X');
+				player1.setName(userIn.nextLine());
+				System.out.print("What is the second player's name?: ");
+				player2 = new Player('O');
+				player2.setName(userIn.nextLine());
+				
+				newGame = false;
+			}
+			
+			b1.clearBoard();
+			win = false;
+			System.out.printf("Score is %s:%d|%s:%d\n", player1.getName(),
+					player1.getScore(), player2.getName(), player2.getScore());
+			
+			for(int i = 0; i < 9; i++){
+				if(i % 2 == 0) {
+					b1.printBoard();
+					System.out.printf("%s, enter your move: ", player1.name);
+					b1.placeGamePiece(player1.gamePiece, userIn.nextInt());
+					if(b1.isWin()) {
+						player1.setScore(player1.getScore() + 1);
+						System.out.printf("%s wins!\n", player1.getName());
+						win = true;
+						break;
+					}
+				}
+				
+				else {
+					b1.printBoard();
+					System.out.printf("%s, enter your move: ", player2.name);
+					b1.placeGamePiece(player2.gamePiece, userIn.nextInt());
+					if(b1.isWin()) {
+						player2.setScore(player2.getScore() + 1);
+						System.out.printf("%s wins!", player2.getName());
+						win = true;
+						break;
+					}
+				}
+			}
+			
+			if(!win)
+				System.out.println("Looks like this one was a tie!");
+			
+			System.out.println("Press 1 to play another match.\n" +
+							   "Press 2 to start a new game.\n" +
+							   "Press 3 to quit playing.\n" +
+							   "Enter your answer: ");
+			
+			answer = userIn.nextInt();
+			userIn.nextLine();
+			switch(answer) {
+			case 1:	break;
+			case 2: newGame = true;
+					break;
+			case 3:	stillPlaying = false;
+					break;
+			}
+		} while(stillPlaying);
+		
+		userIn.close();
+	}
 }
