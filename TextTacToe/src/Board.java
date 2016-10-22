@@ -2,7 +2,11 @@
  * 
  * @author JGreeny
  *
- * ...
+ * The Board class provides a basic 'board' for the game to be played on.
+ * The board is structured with a 3x3 array of characters.
+ * 
+ * This class gives us a means of clearing the board, checking the winning state of the board,
+ * printing the board, and placing pieces on the board.
  *
  */
 

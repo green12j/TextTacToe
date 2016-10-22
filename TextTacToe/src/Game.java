@@ -57,9 +57,12 @@ public class Game {
 		
 		do {
 			if (newGame) {
+				//Initialize player 1
 				System.out.print("What is the first player's name?: ");
 				player1 = new Player('X');
 				player1.setName(userIn.nextLine());
+				
+				//Initialize player 2
 				System.out.print("What is the second player's name?: ");
 				player2 = new Player('O');
 				player2.setName(userIn.nextLine());
@@ -69,10 +72,9 @@ public class Game {
 			
 			b1.clearBoard();
 			win = false;
-			System.out.printf("Score is %s:%d|%s:%d\n", player1.getName(),
-					player1.getScore(), player2.getName(), player2.getScore());
 			
 			for(int i = 0; i < 9; i++){
+				//Player 1 moves on even turns
 				if(i % 2 == 0) {
 					b1.printBoard();
 					System.out.printf("%s, enter your move: ", player1.name);
@@ -85,13 +87,14 @@ public class Game {
 					}
 				}
 				
+				//Player 2 moves on odd turns
 				else {
 					b1.printBoard();
 					System.out.printf("%s, enter your move: ", player2.name);
 					b1.placeGamePiece(player2.gamePiece, userIn.nextInt());
 					if(b1.isWin()) {
 						player2.setScore(player2.getScore() + 1);
-						System.out.printf("%s wins!", player2.getName());
+						System.out.printf("%s wins!\n", player2.getName());
 						win = true;
 						break;
 					}
@@ -101,7 +104,12 @@ public class Game {
 			if(!win)
 				System.out.println("Looks like this one was a tie!");
 			
-			System.out.println("Press 1 to play another match.\n" +
+			//Display players' scores
+			System.out.printf("Score is %s:%d | %s:%d\n", player1.getName(),
+					player1.getScore(), player2.getName(), player2.getScore());
+			
+			//Menu to quit, play again, start new game
+			System.out.print("Press 1 to play another match.\n" +
 							   "Press 2 to start a new game.\n" +
 							   "Press 3 to quit playing.\n" +
 							   "Enter your answer: ");

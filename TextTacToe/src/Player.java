@@ -2,7 +2,10 @@
  * 
  * @author JGreeny
  *
- * ....
+ * The Player class holds basic information about the player.
+ * Each player has a name, a game piece (X or O), and a score.
+ * 
+ * Players' score are per game, and do not carry over from game to game.
  *
  */
 
